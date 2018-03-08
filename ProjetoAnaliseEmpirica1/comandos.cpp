@@ -1,0 +1,1 @@
+g++ -Wall -std=c++11 src/main.cpp src/search.cpp -I include -o bin/exe
