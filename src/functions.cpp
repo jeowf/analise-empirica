@@ -39,7 +39,7 @@ const int * tsearch(const int *first,const int *last, int value )
     auto pos2 =  (2*pos1);
     if(value == first[pos1]){
         return &first[pos1];
-    }else if(value == first[pos2]{
+    }else if(value == first[pos2]){
         return &first[pos2];
     }
     else if(value < pos1){
