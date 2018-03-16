@@ -9,7 +9,7 @@ const int * lsearch(const int *first,const int *last, int value )
         return first;
      }
 }
-
+a
 const int * bsearch(const int *first,const int *last, int value )
 {
     auto size = last - first;
