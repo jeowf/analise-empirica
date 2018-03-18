@@ -1,10 +1,11 @@
 #include <iostream>
 #include <chrono>
+#include <iomanip>
 
 #include "search.h"
 
 #define N_AVERAGE 100
-#define PRECISION 6
+#define PRECISION 7
 
 typedef int (*SearchFunction)(long int *, long int*, long int);
 
@@ -18,15 +19,22 @@ int main(){
 								  edb::jumpSearch,
 								  edb::fibSearch};
 
-	int s;
+	int s, n_samples, s_samples;
 	long int *v;
-	long int value = -1;
+	long int value = s_samples*n_samples;
 
-	while (std::cin >> s){
-		//intancia o vetor com s elementos
-		v = new long int[s];
-		for (int i = 0; i < s; i++)
-			v[i] = i;
+	std::cin >> n_samples >> s_samples;
+
+	//Inicia a alocação do vetor
+	v = new long int[n_samples * s_samples];
+
+	//Inicia o vetor com valores ordenados
+	for (int i = 0; i < n_samples * s_samples; i++)
+		v[i] = i;
+	
+	//para cada amostra
+	for (int i = 1; i <= n_samples; i++){
+		s = i * s_samples;
 
 		//imprime o tamanho do vetor
 		std::cout << s << ", ";
@@ -53,11 +61,16 @@ int main(){
 			std::cout << time << std::setprecision(PRECISION)<<", ";
 		}
 		
-		std::cout << std::endl;
-
-		delete v;
+		std::cout << "END" << std::endl;
 	}
 
-	return 0;
+	// int xx;
+	// for (int i = 0; i < s_samples; i++){
+	// 	xx = functions[5](v, v + s_samples, (long int) (i));
+	// 	std::cout << "find " << v[i] << " at " << xx << "\n";
+	// }
+	// xx = functions[5](v, v + s_samples, (long int) (s_samples));
 
+	// std::cout << s_samples << " " << xx << "\n";
+	return 0;
 }

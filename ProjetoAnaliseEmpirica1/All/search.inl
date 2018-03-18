@@ -1,6 +1,6 @@
-#include <iostream>
-#include <math.h>//sqrt jumpSearch
-#include <algorithm>//min fibSearch
+// #include <iostream>
+// #include <math.h>//sqrt jumpSearch
+// #include <algorithm>//min fibSearch
 
 namespace edb{
 	template <typename T> 
@@ -114,6 +114,7 @@ namespace edb{
 			recTernarySearch (first + i + 1 , first + 2*i , value, _first);
 	}
 
+/*
 	template <typename T> 
 	int jumpSearch(T *first, T *last, T value){
 
@@ -146,6 +147,34 @@ namespace edb{
 		}
 		return NOT_FOUND;
 	}
+*/
+	template <typename T> 
+	int jumpSearch(T *first, T *last, T value){
+		int n = last - first;
+		int m = sqrt(n);
+		int f = 0;
+		int l = m;
+
+		//se o valor procurado for menor que o menor valor
+		//então retorne NOT_FOUND
+		if (value < *first)
+			return NOT_FOUND;
+
+		//enquanto for possível balbalbla
+		while (first[l - 1] < value){
+			l += m;
+			f += m;
+
+			if (f >= n)
+				return NOT_FOUND;
+
+			if (l >= n)
+				l = n;
+		}
+
+		return (linearSearch(first + f, first + l, value) + f);
+	}
+
 
 	template <typename T> 
 	int fibSearch(T *first, T *last, T value){
@@ -180,4 +209,28 @@ namespace edb{
 		}
 		return NOT_FOUND;
 	}
+/*
+	template <typename T> 
+	int fibSearch(T *first, T *last, T value){
+		int n = last - first;
+		int f1 = 0;			//F(1)
+		int f2 = 1; 		//F(2)
+		int fn = f1 + f2; 	//F(n) = F(n-1) + F(n-2)
+		int offset = -1;
+
+		while (fn < n){
+			f1 = f2;
+			f2 = fn;
+			fn = f1 + f2;
+		}
+
+		while (fn > 1){
+
+
+		}
+
+
+
+		return NOT_FOUND;
+	}*/
 }    

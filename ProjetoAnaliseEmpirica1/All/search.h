@@ -1,7 +1,8 @@
 #ifndef SEARCH_H
 #define SEARCH_H
 
-#include <iterator>
+#include <math.h>
+//#include <iterator>
 
 namespace edb{ 
 
