@@ -4,26 +4,37 @@
 #include <iterator>
 
 namespace edb{ 
-	template <typename T> 
-	T * linearSearch(T *, T *, T );
+
+	#define NOT_FOUND -1
 
 	template <typename T> 
-	T * iteBinarySearch(T *, T *, T);
+	int linearSearch(T *, T *, T );
 
 	template <typename T> 
-	T * recBinarySearch(T *, T *, T);
+	int iteBinarySearch(T *, T *, T);
+
+	//sobrescrita usada para guardar o valor de referencia para calcular o index
+	template <typename T> 
+	int recBinarySearch(T *,T *,T, T *);
 
 	template <typename T> 
-	T * iteTernarySearch(T *, T *, T);
+	int recBinarySearch(T *, T *, T);
 
 	template <typename T> 
-	T * recTernarySearch(T *, T *, T);
+	int iteTernarySearch(T *, T *, T);
+
+	//sobrescrita usada para guardar o valor de referencia para calcular o index
+	template <typename T> 
+	int recTernarySearch(T *, T *, T, T *);
 
 	template <typename T> 
-	T * jumpSearch(T *, T *, T);
+	int recTernarySearch(T *, T *, T);
 
 	template <typename T> 
-	T * fibSearch(T *, T *, T);
+	int jumpSearch(T *, T *, T);
+
+	template <typename T> 
+	int fibSearch(T *, T *, T);
 }
 
 #include "search.inl"
