@@ -5,7 +5,7 @@
 #include "search.h"
 
 #define N_AVERAGE 100
-#define PRECISION 7
+#define PRECISION 4
 
 typedef int (*SearchFunction)(long int *, long int*, long int);
 
@@ -54,11 +54,11 @@ int main(){
 				auto end = std::chrono::steady_clock::now();
 
 				//calcula tempo decorrido
-				time += (std::chrono::duration <double, std::milli> (end-start).count()) / N_AVERAGE;
+				time += (std::chrono::duration <double, std::nano> (end-start).count()) / N_AVERAGE;
 			}
 
 			//time /= N_AVERAGE;
-			std::cout << time << std::setprecision(PRECISION)<<", ";
+			std::cout << time << std::scientific << std::setprecision(PRECISION)<<", ";
 		}
 		
 		std::cout << "END" << std::endl;

@@ -3,9 +3,11 @@
 // #include <algorithm>//min fibSearch
 
 namespace edb{
+	
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
-	int linearSearch(T *first, T *last, T value){//Busca Linear
-		auto _first = first; // tamanho do vetor
+	int linearSearch(T *first, T *last, T value){
+		auto _first = first; // primeira posição do arranjo
 		//Verdadeiro até encontrar o valor ou chegar na ultima posição
 		while (first != last){
 			if (*first == value)
@@ -16,6 +18,7 @@ namespace edb{
 		return NOT_FOUND;
 	}
 
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int iteBinarySearch(T *first, T *last, T value){//Binaria Iterativa
 		
@@ -36,6 +39,7 @@ namespace edb{
 		return NOT_FOUND;
 	}
 
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int recBinarySearch(T *first, T *last, T value){
 		return recBinarySearch(first,last,value, first);
@@ -58,6 +62,7 @@ namespace edb{
 			
 	}
 
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int iteTernarySearch(T *first, T *last, T value){
 		//pega o primeiro indice
@@ -84,12 +89,14 @@ namespace edb{
 		return NOT_FOUND;
 	}
 
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int recTernarySearch(T *first, T *last, T value){
 
 		return recTernarySearch(first, last, value, first);
 	}
 
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int recTernarySearch(T *first, T *last, T value, T *_first){
 		//se a posição do first passar limite
@@ -114,40 +121,7 @@ namespace edb{
 			recTernarySearch (first + i + 1 , first + 2*i , value, _first);
 	}
 
-/*
-	template <typename T> 
-	int jumpSearch(T *first, T *last, T value){
-
-		int i = last - first;
-		int s = sqrt(i);
-		int start = 0;
-		int out = 0;
-		while(start < i){
-			if(value < first[start]){
-				last = first + start + 1;
-				out = linearSearch(first, last, value);
-				return out;
-			}	
-			else{
-				//evita que exerceda o limite do array.
-				if(i - start < s){ 
-					first += start;				
-					out = linearSearch(first, last, value);
-
-					if(out == -1){
-						return out;
-					}						
-					else{
-						return out + start;
-					}
-				}else{
-					start += s;
-				}
-			}
-		}
-		return NOT_FOUND;
-	}
-*/
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int jumpSearch(T *first, T *last, T value){
 		int n = last - first;
@@ -175,7 +149,7 @@ namespace edb{
 		return (linearSearch(first + f, first + l, value) + f);
 	}
 
-
+	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int fibSearch(T *first, T *last, T value){
 		int f1 = 0;
@@ -209,28 +183,5 @@ namespace edb{
 		}
 		return NOT_FOUND;
 	}
-/*
-	template <typename T> 
-	int fibSearch(T *first, T *last, T value){
-		int n = last - first;
-		int f1 = 0;			//F(1)
-		int f2 = 1; 		//F(2)
-		int fn = f1 + f2; 	//F(n) = F(n-1) + F(n-2)
-		int offset = -1;
 
-		while (fn < n){
-			f1 = f2;
-			f2 = fn;
-			fn = f1 + f2;
-		}
-
-		while (fn > 1){
-
-
-		}
-
-
-
-		return NOT_FOUND;
-	}*/
 }    
