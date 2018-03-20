@@ -11,6 +11,7 @@ typedef int (*SearchFunction)(long int *, long int*, long int);
 
 int main(){
 
+	//array de funções
 	SearchFunction functions[] = {edb::linearSearch,
 								  edb::iteBinarySearch,
 								  edb::recBinarySearch,
@@ -19,16 +20,19 @@ int main(){
 								  edb::jumpSearch,
 								  edb::fibSearch};
 
-	int s, n_samples, s_samples;
+	int s, 		   //aux para calcular tamanho
+		n_samples, //quantidade de amostras
+		s_samples; //tamanho das amostras
 	long int *v;
 	long int value = s_samples*n_samples;
 
+	//ler quantidade e tamanho das amostras
 	std::cin >> n_samples >> s_samples;
 
-	//Inicia a alocação do vetor
+	//aloca o array
 	v = new long int[n_samples * s_samples];
 
-	//Inicia o vetor com valores ordenados
+	//inicia o vetor com valores ordenados
 	for (int i = 0; i < n_samples * s_samples; i++)
 		v[i] = i;
 	
@@ -36,41 +40,37 @@ int main(){
 	for (int i = 1; i <= n_samples; i++){
 		s = i * s_samples;
 
-		//imprime o tamanho do vetor
+		//imprime o tamanho da amostra
 		std::cout << s << ", ";
 
 		//simula o pior caso para cada função
+		//ou seja, o valor não é encontrado
 		for (auto & e : functions){
 			double time = 0;
 
-			//executa a função N_AVERAGE vezes e em seguida calcula a média de tempo
-			//das execuções
+			//executa a função N_AVERAGE vezes e em seguida 
+			//calcula a média de tempo das execuções
 			for (int i = 0; i < N_AVERAGE; i++){
 				//inicia o cronometro
 				auto start = std::chrono::steady_clock::now();
 
+				//executa as funções
 				int x = e(v, v + s, value);
 
+				//finaliza o cronometro
 				auto end = std::chrono::steady_clock::now();
 
-				//calcula tempo decorrido
+				//calcula tempo decorrido em nano segundos
 				time += (std::chrono::duration <double, std::nano> (end-start).count()) / N_AVERAGE;
 			}
 
-			//time /= N_AVERAGE;
+			//imprime uma linha com os tempos das funções
 			std::cout << time << std::scientific << std::setprecision(PRECISION)<<", ";
 		}
 		
+		//pula linha
 		std::cout << "END" << std::endl;
 	}
 
-	// int xx;
-	// for (int i = 0; i < s_samples; i++){
-	// 	xx = functions[5](v, v + s_samples, (long int) (i));
-	// 	std::cout << "find " << v[i] << " at " << xx << "\n";
-	// }
-	// xx = functions[5](v, v + s_samples, (long int) (s_samples));
-
-	// std::cout << s_samples << " " << xx << "\n";
 	return 0;
 }

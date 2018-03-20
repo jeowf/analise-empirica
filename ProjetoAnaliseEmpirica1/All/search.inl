@@ -1,42 +1,50 @@
-// #include <iostream>
-// #include <math.h>//sqrt jumpSearch
-// #include <algorithm>//min fibSearch
-
 namespace edb{
 	
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int linearSearch(T *first, T *last, T value){
 		auto _first = first; // primeira posição do arranjo
-		//Verdadeiro até encontrar o valor ou chegar na ultima posição
+
+		//enquanto houver valores a serem comparados
 		while (first != last){
+			//verifica se um valor x é igual a value
 			if (*first == value)
-				return first - _first;
-			first++;
+				return first - _first; //retorna o índice
+			first++; //incrementa o ponteiro
 		}
-		//se não encontrar retorna -1
-		return NOT_FOUND;
+
+		return NOT_FOUND; //caso value não seja encontrado
 	}
 
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
-	int iteBinarySearch(T *first, T *last, T value){//Binaria Iterativa
+	int iteBinarySearch(T *first, T *last, T value){
 		
-		auto _first = first;//salva a primeira posição
-		int i = last - first;// tamanho do vetor
+		auto _first = first;  //primeira posição do arranjo
+		int i = last - first; //tamanho do vetor
 
-		while (first < last - 1){ //enteder pq o -1 funfa kkkkkk
-			i /= 2;// pega o meio do vetor
+		//enquanto houver intervalos de, no mínimo, 1 valor
+		while (first < last - 1){
+			//divide o tamanho pela metade para
+			//obter o índice de comparação
+			i /= 2; 
 
-			if (first[i] == value)// olha o elemento do meio e retorna se verdadeiro
-				return first + i - _first;
-			else if (value < first[i] )// olha os elementos anteriores
-				last = first + i + 1;
-			else // olha os elementos posteriores
+			//se encontrar o elemento
+			if (first[i] == value)
+				return first + i - _first; //retorna o índice
+
+			//se value é menor que o elemento inspecionado
+			else if (value < first[i] )
+				//restringe o intervalo para a primeira metade
+				last = first + i + 1; 
+
+			//se value é maior que o elemento inspecionado
+			else 
+				//restringe o intervalo para a segunda metade
 				first += i + 1;
 		}
-		//se não encrontrar
-		return NOT_FOUND;
+
+		return NOT_FOUND; //caso value não seja encontrado
 	}
 
 	//Retorna o índice de um elemento num intervalo
@@ -46,47 +54,65 @@ namespace edb{
 	}
 
 	template <typename T> 
-	int recBinarySearch(T *first, T *last, T value, T *_first){//Binario recursivo
-		// verifica a posição do first
+	int recBinarySearch(T *first, T *last, T value, T *_first){
+		//se não há elemento para ser verificado
 		if (first >= last)
-			return NOT_FOUND;
+			return NOT_FOUND; //value não foi encontrado
 		
-		int i = (last - first)/2;//metade do vetor
+		int i = (last - first)/2; //metade do tamanho do array
 
-	 	if (first[i] == value) // se achar retorne o indice
-			return first + i - _first;
-		else if (value < first[i] )// se for menor chame novamente com o um novo last
+		//se value for encontrado no indice i
+	 	if (first[i] == value) 
+			return first + i - _first; //retorna o índice
+
+		//se value é menor que o elemento inspecionado
+		else if (value < first[i] )
+			//restringe o intervalo para a primeira metade
 			recBinarySearch(first, first + i, value, _first);
-		else//senão chame com um novo first no meio do array
+
+		//se value é maior que o elemento inspecionado
+		else
+			//restringe o intervalo para a segunda metade
 			recBinarySearch(first + i + 1, last, value, _first);
-			
 	}
 
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int iteTernarySearch(T *first, T *last, T value){
-		//pega o primeiro indice
-		auto _first = first;
-		int i = last - first;// tamanho do array
-		//enquanto a posição do first não passar limite
+		auto _first = first; //primeira posição
+		int i = last - first;//tamanho do array
+
+		//enquanto houverem elementos a serem comparados
 		while (first < last){
 			i /= 3; //divide o array em 3
 
-			if (first[i] == value){// se for o primeiro divisor
-				return first + i - _first;
-			}else if (first[2*i] == value){//se for o segundo divisor
-				return first + 2 * i - _first;
-			}else if (value < first[i]){ //se o valor está dentro do primeiro 1 terço do vetor
+			//se value for encontrado no índice i
+			if (first[i] == value){
+				return first + i - _first; //retorna o índice
+
+			//se value for encontrado no índice 2i
+			}else if (first[2*i] == value){
+				return first + 2 * i - _first; //retorna o índice
+
+			//se o valor está dentro do primeiro 1 terço do vetor
+			}else if (value < first[i]){ 
+				//ajusta intervalo para o terço correspondente
 				last = first + i;
-			}else if (value > first[2*i]){ //se o valor está dentro do ultimo 1 terço do vetor
+
+			//se o valor está dentro do ultimo 1 terço do vetor
+			}else if (value > first[2*i]){ 
+				//ajusta intervalo para o terço correspondente
 				first += 2*i + 1;
-			} else{ //se o valor está dentro do 1 terço do meio
+
+			//se o valor está dentro do 1 terço do meio
+			} else{ 
+				//ajusta intervalo para o terço correspondente
 				first += i + 1;
 				last = first + i;
 			}
 		}
 
-		return NOT_FOUND;
+		return NOT_FOUND; //caso value não seja encontrado
 	}
 
 	//Retorna o índice de um elemento num intervalo
@@ -99,52 +125,64 @@ namespace edb{
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int recTernarySearch(T *first, T *last, T value, T *_first){
-		//se a posição do first passar limite
+		//se não há elemento para ser verificado
 		if (first >= last)
-			return NOT_FOUND;
+			return NOT_FOUND; //value não foi encontrado
 
-		int i = (last - first)/3;//divide o vetor em 3
+		int i = (last - first)/3; //1 terço do tamanho do array
 
-		if (first[i] == value)// se achar no primeiro divisor retorne o indice
-			return first + i - _first;
+		//se value está no índice i
+		if (first[i] == value)
+			return first + i - _first; //retorna o índice
 
-		else if (first[2*i] == value)//procure no segundo
-			return first + 2 * i - _first;
+		//se value está no índice 2i
+		else if (first[2*i] == value)
+			return first + 2 * i - _first; //retorna o índice
 
-		else if (value < first[i])//se for menor q o primeiro divisor chama a função pro primeiro terço
+		//se o valor está dentro do primeiro 1 terço do vetor
+		else if (value < first[i])
+			//ajusta intervalo para o terço correspondente
 			recTernarySearch(first, first + i, value, _first);
 
-		else if (value > first[2*i])//se for maior q o segundo divisor chama a função pro ultimp terço
+		//se o valor está dentro do ultimo 1 terço do vetor
+		else if (value > first[2*i])
+			//ajusta intervalo para o terço correspondente
 			recTernarySearch(first + 2*i + 1, last, value, _first);
 
-		else//se não chama a função pro terço do meio
+		//se o valor está dentro do 1 terço do meio
+		else
+			//ajusta intervalo para o terço correspondente			
 			recTernarySearch (first + i + 1 , first + 2*i , value, _first);
 	}
 
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int jumpSearch(T *first, T *last, T value){
-		int n = last - first;
-		int m = sqrt(n);
-		int f = 0;
-		int l = m;
+		int n = last - first; //tamanho do array
+		int m = sqrt(n); //salto
+		int f = 0; //indice anterior ao salto
+		int l = m; //índice do salto
 
-		//se o valor procurado for menor que o menor valor
-		//então retorne NOT_FOUND
+		//para evitar ajustes de limite inferiores no array
+		//basta retornar NOT_FOUND caso value seja menor que o
+		//menor valor do vetor
 		if (value < *first)
-			return NOT_FOUND;
+			return NOT_FOUND; //value não foi encontrado
 
-		//enquanto for possível
+		//enquanto houver elementos a serem comparados
 		while (first[l - 1] < value){
-			l += m;
-			f += m;
+			l += m; //incrementa last do novo intervalo
+			f += m; //incrementa first do novo intervalo
 
+			//se novo first for maior q o tamanho do vetor
 			if (f >= n)
-				return NOT_FOUND;
+				return NOT_FOUND; //value não foi encontrado
 
+			//se novo last for maior que tamanho do vetor
 			if (l >= n)
-				l = n;
+				l = n; //ajusta-se os limites
 		}
+
 		//faz uma busca linear no subvetor
 		return (linearSearch(first + f, first + l, value) + f);
 	}
@@ -152,36 +190,48 @@ namespace edb{
 	//Retorna o índice de um elemento num intervalo
 	template <typename T> 
 	int fibSearch(T *first, T *last, T value){
-		int f1 = 0;
-		int f2 = 1;
-		int f3 = f1 + f2;
-		int i = last - first;
-		// Encontrar o menor termo de fibonnaci maior que o tamanho do array
+		int f1 = 0;		  		//(n-2)ésimo termo de fibonacci
+		int f2 = 1;		  		//(n-1)ésimo termo de fibonacci
+		int f3 = f1 + f2; 		//n-ésimo termo de fibonacci
+		int i = last - first;	//tamanho do vetor
+
+		//verificador se os indices estão dentro do vetor
+		int lim = -1; 
+
+		//encontrar o menor termo de fibonnaci maior
+		//que o tamanho do array
 		while(f3 < i){
 			f1 = f2;
 			f2 = f3;
 			f3 = f1 + f2;
 		}
-		//verificador se os indices estão dentro do vetor
-		int lim = -1;
 
+		//enquanto houver elementos a serem comparados
 		while(f3 > 1){
-			int val = std::min(lim+f1,i-1);// retorna o menor elemento
+			int val = std::min(lim+f1,i-1); //menor elemento
 
-			if(first[val] > value){//se for menor que o valor cada elemento volta dois termo na sequencia de fibonnaci
+			//se value for menor que o valor no índice,
+			//cada elemento volta dois termo na sequencia de fibonnaci
+			if(first[val] > value){
 				f3 = f1;
 				f2 -= f1;
 				f1 = f3 - f2;
-			}else if(first[val] < value){//se for menor que o valor cada elemento volta um termo na sequencia
+
+			//se value for maior que o valor no índice
+			//cada elemento volta um termo na sequencia de fibonacci
+			}else if(first[val] < value){
 				f3 = f2;
 				f2 = f1;
 				f1 = f3 - f2;
 				lim = val;
+
+			//se for igual ao valor no índice
 			}else{
-				return val;// se for igual retorna o indice
+				return val;//retorna o índice
 			}
 		}
-		return NOT_FOUND;
+
+		return NOT_FOUND; //caso value não seja encontrado
 	}
 
 }    
