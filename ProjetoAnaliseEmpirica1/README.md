@@ -2,6 +2,11 @@
 
 Projeto da disciplina de EDB I, ministrada pelo professor Selan Rodrigues.
 
+## Autores
+
+	* Alison Hedigliranes
+	* Felipe Morais
+
 ## Descrição
 
 O projeto tem o intuito de analisar o tempo de execução de sete algoritmos de busca em vetores ordenados.
