@@ -61,11 +61,11 @@ int main(){
 				auto end = std::chrono::steady_clock::now();
 
 				//calcula tempo decorrido em nano segundos
-				time += (std::chrono::duration <double, std::nano> (end-start).count()) / N_AVERAGE;
+				time += (std::chrono::duration <double, std::milli> (end-start).count()) / N_AVERAGE;
 			}
 
 			//imprime uma linha com os tempos das funções
-			std::cout << time << std::scientific << std::setprecision(PRECISION)<<", ";
+			std::cout << time << std::setprecision(PRECISION)<<", ";
 		}
 		
 		//pula linha
